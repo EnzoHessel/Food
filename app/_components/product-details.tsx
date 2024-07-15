@@ -32,7 +32,6 @@ const ProductDetails = ({ product, complemataryProducts }: ProductDetailsProps) 
     else return currentState - 1}
   );
 
-
   return (
     <div className="py-5">
       {/* restaurante */}
@@ -108,7 +107,7 @@ const ProductDetails = ({ product, complemataryProducts }: ProductDetailsProps) 
                 {formatCurrency(Number(product.restaurant.deliveryFee))}
               </p>
             ) : (
-              <p className="text-sm font-sem">
+              <p className="text-sm font-semibold">
                 Entrega grátis
               </p>
             )}
@@ -121,15 +120,9 @@ const ProductDetails = ({ product, complemataryProducts }: ProductDetailsProps) 
               <TimerIcon size={14}/>
             </div>
 
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-xs font-sem">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">
-                Entrega grátis
-              </p>
-            )}
+            <p className="text-xs font-semibold">
+              {product.restaurant.deliveryTimeMinutes} min
+            </p>
 
           </div>
         </Card>
