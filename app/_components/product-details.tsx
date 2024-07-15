@@ -4,11 +4,11 @@ import { Prisma } from "@prisma/client";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
 import DiscountBadge from "./discount-badge";
 import Image from "next/image";
-import { BikeIcon, ChevronLeftIcon, ChevronRightIcon, TimerIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { Card } from "./ui/card";
 import ProductList from "./product-list";
+import DeliveryInfo from "./delivery-info";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -33,7 +33,7 @@ const ProductDetails = ({ product, complemataryProducts }: ProductDetailsProps) 
   );
 
   return (
-    <div className="py-5">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
       {/* restaurante */}
       <div className="flex items-center gap-[0.365rem] px-5">
         <div className="relative h-6 w-6">
@@ -94,38 +94,7 @@ const ProductDetails = ({ product, complemataryProducts }: ProductDetailsProps) 
 
       {/* dados da entrega */}
       <div className="px-5">
-        <Card className="flex justify-around py-3 mt-6">
-          {/* custo */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <BikeIcon size={14}/>
-            </div>
-
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-xs font-sem">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">
-                Entrega grátis
-              </p>
-            )}
-
-          </div>
-          {/* tempo */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <TimerIcon size={14}/>
-            </div>
-
-            <p className="text-xs font-semibold">
-              {product.restaurant.deliveryTimeMinutes} min
-            </p>
-
-          </div>
-        </Card>
+        <DeliveryInfo restaurant={product.restaurant}/>
       </div>
 
       <div className="mt-6 space-y-3 px-5">
