@@ -4,7 +4,7 @@ import { db } from "@/app/_lib/prisma"
 
 const RecommendedRestaurants = async () => {
   const restaurants = await db.restaurant.findMany({});
-
+  // TODO pegar produtos mais pedidos
   return (
     <>
       <Header />
@@ -12,12 +12,12 @@ const RecommendedRestaurants = async () => {
         <h2 className="font-semibold text-lg mb-6">Restaurantes recomendados</h2>
         <div className="flex flex-col gap-6 w-full">
         {restaurants.map(restaurant => (
-            <RestaurantItem
-              key={restaurant.id}
-              restaurant={restaurant}
-              className="min-w-full max-w-full"
-            />
-          ))}
+          <RestaurantItem
+            key={restaurant.id}
+            restaurant={restaurant}
+            className="min-w-full max-w-full"
+          />
+        ))}
         </div>
       </div>
     </>
