@@ -1,27 +1,41 @@
 import Header from "@/app/_components/header";
-import RestaurantItem from "@/app/_components/restaurant-item"
-import { db } from "@/app/_lib/prisma"
+import RestaurantItem from "@/app/_components/restaurant-item";
+import { authOptions } from "@/app/_lib/auth";
+import { db } from "@/app/_lib/prisma";
+import { getServerSession } from "next-auth";
 
 const RecommendedRestaurants = async () => {
+  const session = await getServerSession(authOptions);
+  const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+    include: {
+      restaurant: true,
+    },
+  });
   const restaurants = await db.restaurant.findMany({});
-  // TODO pegar produtos mais pedidos
+
   return (
     <>
       <Header />
       <div className="px-5 py-6">
-        <h2 className="font-semibold text-lg mb-6">Restaurantes recomendados</h2>
-        <div className="flex flex-col gap-6 w-full">
-        {restaurants.map(restaurant => (
-          <RestaurantItem
-            key={restaurant.id}
-            restaurant={restaurant}
-            className="min-w-full max-w-full"
-          />
-        ))}
+        <h2 className="mb-6 text-lg font-semibold">
+          Restaurantes Recomendados
+        </h2>
+        <div className="flex w-full flex-col gap-6">
+          {restaurants.map((restaurant) => (
+            <RestaurantItem
+              key={restaurant.id}
+              restaurant={restaurant}
+              className="min-w-full max-w-full"
+              userFavoriteRestaurants={userFavoriteRestaurants}
+            />
+          ))}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default RecommendedRestaurants
+export default RecommendedRestaurants;

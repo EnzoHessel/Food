@@ -10,10 +10,9 @@ export const calculateProductTotalPrice = (product: Product): number => {
   return Number(product.price) - discount;
 };
 
-
 export const formatCurrency = (value: number): string => {
   return `R$${Intl.NumberFormat("pt-BR", {
     currency: "BRL",
     minimumFractionDigits: 2,
   }).format(value)}`;
-}
+};
