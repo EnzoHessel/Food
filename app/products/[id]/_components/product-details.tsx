@@ -29,6 +29,7 @@ import {
 import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useContext, useState } from "react";
 
 interface ProductDetailsProps {
@@ -89,20 +90,20 @@ const ProductDetails = ({
     <>
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
         {/* RESTAURANTE */}
-        <div className="flex items-center gap-[0.375rem] px-5">
-          <div className="relative h-6 w-6">
-            <Image
-              src={product.restaurant.imageUrl}
-              alt={product.restaurant.name}
-              fill
-              sizes="100%"
-              className="rounded-full object-cover"
-            />
-          </div>
-          <span className="text-xs text-muted-foreground">
-            {product.restaurant.name}
-          </span>
-        </div>
+          <Link href={`/restaurants/${product.restaurant.id}`} className="flex items-center gap-[0.375rem] px-5">
+            <div className="relative h-6 w-6">
+              <Image
+                src={product.restaurant.imageUrl}
+                alt={product.restaurant.name}
+                fill
+                sizes="100%"
+                className="rounded-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-muted-foreground">
+              {product.restaurant.name}
+            </span>
+          </Link>
 
         {/* NOME DO PRODUTO */}
         <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
@@ -159,7 +160,7 @@ const ProductDetails = ({
           <ProductList products={complementaryProducts} />
         </div>
 
-        <div className="mt-6 px-5">
+        <div className="fixed bottom-0 py-3 px-5 w-full bg-gray-50 shadow-lg">
           <Button
             className="w-full font-semibold"
             onClick={handleAddToCartClick}
