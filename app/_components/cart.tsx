@@ -21,6 +21,7 @@ import {
 } from "./ui/alert-dialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 interface CartProps {
   // eslint-disable-next-line no-unused-vars
@@ -167,11 +168,21 @@ const Cart = ({ setIsOpen }: CartProps) => {
             <AlertDialogAction
               onClick={handleFinishOrderClick}
               disabled={isSubmitLoading}
+              className={clsx({"bg-gray-500": data === null})}
             >
               {isSubmitLoading && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
               )}
-              Finalizar
+
+              {data === null ? (
+                <p>
+                  Voce precisa estar logado
+                </p>
+              ) : (
+                <p>
+                  Finalizar
+                </p>
+              )}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

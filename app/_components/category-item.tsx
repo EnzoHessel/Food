@@ -10,14 +10,17 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
   return (
     <Link
       href={`/categories/${category.id}/products`}
-      className="flex items-center justify-center gap-3 rounded-full bg-white px-4 py-3 shadow-md"
+      className="flex items-center justify-center gap-2 rounded-full bg-white px-4 py-4 shadow-sm"
     >
-      <Image
-        src={category.imageUrl}
-        alt={category.name}
-        height={30}
-        width={30}
-      />
+      <div className="relative w-6 h-6">
+        <Image
+          src={category.imageUrl}
+          alt={category.name}
+          fill
+          sizes="100%"
+          className="object-contain"
+        />
+      </div>
 
       <span className="text-sm font-semibold">{category.name}</span>
     </Link>
