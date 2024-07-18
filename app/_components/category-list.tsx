@@ -2,15 +2,15 @@ import { db } from "../_lib/prisma";
 import CategoryItem from "./category-item";
 
 const CategoryList = async () => {
-  const categories = await db.category.findMany({})
+  const categories = await db.category.findMany({});
 
   return (
-    <div className="flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-      {categories.map(category => (
-        <CategoryItem key={category.id} category={category}/>
+    <div className="grid grid-cols-2 gap-3">
+      {categories.map((category) => (
+        <CategoryItem key={category.id} category={category} />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default CategoryList;

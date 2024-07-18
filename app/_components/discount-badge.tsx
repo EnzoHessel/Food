@@ -13,7 +13,7 @@ const DiscountBadge = ({ product }: DiscountBadgeProps) => {
         {product.discountPercentage}%
       </span>
     </div>
-  )
-}
+  );
+};
 
 export default DiscountBadge;

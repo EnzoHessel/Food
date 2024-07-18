@@ -26,7 +26,7 @@ const Header = () => {
   const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
-  const handleSignInClick = () => signIn();
+  const handleSignInClick = () => signIn("google");
 
   return (
     <div className="flex justify-between px-5 pt-6">

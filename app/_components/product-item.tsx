@@ -1,3 +1,5 @@
+"use client";
+
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
@@ -11,23 +13,27 @@ interface ProductItemProps {
       restaurant: {
         select: {
           name: true;
-        }
+        };
       };
     };
   }>;
-  className?: string
+  className?: string;
 }
 
-const ProductItem = ({product, className}: ProductItemProps) => {
+const ProductItem = ({ product, className }: ProductItemProps) => {
   return (
-    <Link className={cn("w-[150px] min-w-[150px]", className)} href={`/products/${product.id}`}>
+    <Link
+      className={cn("w-[150px] min-w-[150px]", className)}
+      href={`/products/${product.id}`}
+    >
       <div className="w-full space-y-2">
         <div className="relative aspect-square w-full">
           <Image
             src={product.imageUrl}
             alt={product.name}
             fill
-            className="object-cover rounded-lg shadow-md"
+            sizes="100%"
+            className="rounded-lg object-cover shadow-md"
           />
 
           {product.discountPercentage && (
@@ -41,24 +47,25 @@ const ProductItem = ({product, className}: ProductItemProps) => {
         </div>
 
         <div>
-          <h2 className="text-sm truncate">{product.name}</h2>
-          <div className="flex gap-1 items-center">
+          <h2 className="truncate text-sm">{product.name}</h2>
+          <div className="flex items-center gap-1">
             <h3 className="font-semibold">
               {formatCurrency(calculateProductTotalPrice(product))}
             </h3>
             {product.discountPercentage > 0 && (
-              <span className="text-muted-foreground line-through text-xs">
+              <span className="text-xs text-muted-foreground line-through">
                 {formatCurrency(Number(product.price))}
               </span>
             )}
           </div>
 
-          <span className="text-xs text-muted-foreground block">{product.restaurant.name}</span>
+          <span className="block text-xs text-muted-foreground">
+            {product.restaurant.name}
+          </span>
         </div>
       </div>
     </Link>
-  )
-}
-
+  );
+};
 
 export default ProductItem;
