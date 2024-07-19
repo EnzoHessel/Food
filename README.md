@@ -1,4 +1,4 @@
-## FSW - ifood clone
+## ifood clone
 
 ### Conventional Commits
 
